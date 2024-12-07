@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="01f9ba30553c49598e6a4d79dcdfc1e1" Name="Diagram1">
+        <EntityTypeShape EntityType="WebEventPosterModel.City" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebEventPosterModel.Client" Width="1.5" PointX="8.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebEventPosterModel.Country" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebEventPosterModel.Event" Width="1.5" PointX="2.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebEventPosterModel.EventCategory" Width="1.5" PointX="7.625" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="WebEventPosterModel.TicketTransaction" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="WebEventPosterModel.FK__City__CountryID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="WebEventPosterModel.FK__TicketTra__CityI__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="WebEventPosterModel.FK__TicketTra__Clien__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="WebEventPosterModel.FK__TicketTra__Count__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="WebEventPosterModel.FK__TicketTra__Event__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="WebEventPosterModel.FK__TicketTra__Event__44FF419A" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

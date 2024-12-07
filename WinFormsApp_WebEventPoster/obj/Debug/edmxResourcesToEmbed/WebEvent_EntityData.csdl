@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebEventPosterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="City">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" />
+    <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CountryID" Type="Int32" />
+    <NavigationProperty Name="Country" Relationship="Self.FK__City__CountryID__3F466844" FromRole="City" ToRole="Country" />
+    <NavigationProperty Name="TicketTransactions" Relationship="Self.FK__TicketTra__CityI__46E78A0C" FromRole="City" ToRole="TicketTransaction" />
+  </EntityType>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="ClientID" />
+    </Key>
+    <Property Name="ClientID" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="TicketTransactions" Relationship="Self.FK__TicketTra__Clien__47DBAE45" FromRole="Client" ToRole="TicketTransaction" />
+  </EntityType>
+  <EntityType Name="Country">
+    <Key>
+      <PropertyRef Name="CountryID" />
+    </Key>
+    <Property Name="CountryID" Type="Int32" Nullable="false" />
+    <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Cities" Relationship="Self.FK__City__CountryID__3F466844" FromRole="Country" ToRole="City" />
+    <NavigationProperty Name="TicketTransactions" Relationship="Self.FK__TicketTra__Count__45F365D3" FromRole="Country" ToRole="TicketTransaction" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="EventID" />
+    </Key>
+    <Property Name="EventID" Type="Int32" Nullable="false" />
+    <Property Name="EventName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EventDate" Type="DateTime" Precision="0" />
+    <Property Name="EventTime" Type="String" FixedLength="false" MaxLength="5" Unicode="false" />
+    <Property Name="EventLocation" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PosterURL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AgeRestrict" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TicketTransactions" Relationship="Self.FK__TicketTra__Event__440B1D61" FromRole="Event" ToRole="TicketTransaction" />
+    <Property Name="MaxTicket" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="20" Scale="3" />
+  </EntityType>
+  <EntityType Name="EventCategory">
+    <Key>
+      <PropertyRef Name="EventCategoryID" />
+    </Key>
+    <Property Name="EventCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TicketTransactions" Relationship="Self.FK__TicketTra__Event__44FF419A" FromRole="EventCategory" ToRole="TicketTransaction" />
+  </EntityType>
+  <EntityType Name="TicketTransaction">
+    <Key>
+      <PropertyRef Name="TransactionID" />
+    </Key>
+    <Property Name="TransactionID" Type="Int32" Nullable="false" />
+    <Property Name="EventID" Type="Int32" />
+    <Property Name="EventCategoryID" Type="Int32" />
+    <Property Name="CountryID" Type="Int32" />
+    <Property Name="CityID" Type="Int32" />
+    <Property Name="ClientID" Type="Int32" />
+    <Property Name="Qty" Type="Int32" />
+    <Property Name="TotalPrice" Type="Decimal" Precision="20" Scale="3" />
+    <NavigationProperty Name="City" Relationship="Self.FK__TicketTra__CityI__46E78A0C" FromRole="TicketTransaction" ToRole="City" />
+    <NavigationProperty Name="Client" Relationship="Self.FK__TicketTra__Clien__47DBAE45" FromRole="TicketTransaction" ToRole="Client" />
+    <NavigationProperty Name="Country" Relationship="Self.FK__TicketTra__Count__45F365D3" FromRole="TicketTransaction" ToRole="Country" />
+    <NavigationProperty Name="Event" Relationship="Self.FK__TicketTra__Event__440B1D61" FromRole="TicketTransaction" ToRole="Event" />
+    <NavigationProperty Name="EventCategory" Relationship="Self.FK__TicketTra__Event__44FF419A" FromRole="TicketTransaction" ToRole="EventCategory" />
+    <Property Name="TransactionDate" Type="DateTime" Precision="3" />
+    <Property Name="TransUpdateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <Association Name="FK__City__CountryID__3F466844">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="City" Type="Self.City" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="City">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TicketTra__CityI__46E78A0C">
+    <End Role="City" Type="Self.City" Multiplicity="0..1" />
+    <End Role="TicketTransaction" Type="Self.TicketTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="City">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="TicketTransaction">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TicketTra__Clien__47DBAE45">
+    <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+    <End Role="TicketTransaction" Type="Self.TicketTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="ClientID" />
+      </Principal>
+      <Dependent Role="TicketTransaction">
+        <PropertyRef Name="ClientID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TicketTra__Count__45F365D3">
+    <End Role="Country" Type="Self.Country" Multiplicity="0..1" />
+    <End Role="TicketTransaction" Type="Self.TicketTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Country">
+        <PropertyRef Name="CountryID" />
+      </Principal>
+      <Dependent Role="TicketTransaction">
+        <PropertyRef Name="CountryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TicketTra__Event__440B1D61">
+    <End Role="Event" Type="Self.Event" Multiplicity="0..1" />
+    <End Role="TicketTransaction" Type="Self.TicketTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="EventID" />
+      </Principal>
+      <Dependent Role="TicketTransaction">
+        <PropertyRef Name="EventID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TicketTra__Event__44FF419A">
+    <End Role="EventCategory" Type="Self.EventCategory" Multiplicity="0..1" />
+    <End Role="TicketTransaction" Type="Self.TicketTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EventCategory">
+        <PropertyRef Name="EventCategoryID" />
+      </Principal>
+      <Dependent Role="TicketTransaction">
+        <PropertyRef Name="EventCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebEventPosterEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Cities" EntityType="Self.City" />
+    <EntitySet Name="Clients" EntityType="Self.Client" />
+    <EntitySet Name="Countries" EntityType="Self.Country" />
+    <EntitySet Name="Events" EntityType="Self.Event" />
+    <EntitySet Name="EventCategories" EntityType="Self.EventCategory" />
+    <EntitySet Name="TicketTransactions" EntityType="Self.TicketTransaction" />
+    <AssociationSet Name="FK__City__CountryID__3F466844" Association="Self.FK__City__CountryID__3F466844">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="City" EntitySet="Cities" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TicketTra__CityI__46E78A0C" Association="Self.FK__TicketTra__CityI__46E78A0C">
+      <End Role="City" EntitySet="Cities" />
+      <End Role="TicketTransaction" EntitySet="TicketTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TicketTra__Clien__47DBAE45" Association="Self.FK__TicketTra__Clien__47DBAE45">
+      <End Role="Client" EntitySet="Clients" />
+      <End Role="TicketTransaction" EntitySet="TicketTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TicketTra__Count__45F365D3" Association="Self.FK__TicketTra__Count__45F365D3">
+      <End Role="Country" EntitySet="Countries" />
+      <End Role="TicketTransaction" EntitySet="TicketTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TicketTra__Event__440B1D61" Association="Self.FK__TicketTra__Event__440B1D61">
+      <End Role="Event" EntitySet="Events" />
+      <End Role="TicketTransaction" EntitySet="TicketTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TicketTra__Event__44FF419A" Association="Self.FK__TicketTra__Event__44FF419A">
+      <End Role="EventCategory" EntitySet="EventCategories" />
+      <End Role="TicketTransaction" EntitySet="TicketTransactions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
